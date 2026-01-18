@@ -1,0 +1,29 @@
+// Task-2: Home Automation with Bluetooth (Simulated)
+// CodTech Embedded Systems Internship
+
+char command;
+int device = 8;
+
+void setup() {
+  pinMode(device, OUTPUT);
+  digitalWrite(device, LOW);
+  Serial.begin(9600);
+  Serial.println("Bluetooth Home Automation (Simulated)");
+}
+
+void loop() {
+  if (Serial.available()) {
+    command = Serial.read();
+
+    if (command == '1') {
+      digitalWrite(device, HIGH);
+      Serial.println("Device ON");
+    }
+    else if (command == '0') {
+      digitalWrite(device, LOW);
+      Serial.println("Device OFF");
+    }
+  }
+}
+
+
