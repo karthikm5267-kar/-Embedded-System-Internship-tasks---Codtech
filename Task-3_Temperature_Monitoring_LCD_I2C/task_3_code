@@ -1,0 +1,37 @@
+// Task-3: Temperature Monitoring System using I2C LCD
+// CodTech Embedded Systems Internship
+
+#include <OneWire.h>
+#include <DallasTemperature.h>
+#include <LiquidCrystal_I2C.h>
+
+#define ONE_WIRE_BUS 2
+
+OneWire oneWire(ONE_WIRE_BUS);
+DallasTemperature sensors(&oneWire);
+
+// I2C LCD address usually 0x27 or 0x3F
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  sensors.begin();
+  lcd.init();
+  lcd.backlight();
+
+  lcd.setCursor(0, 0);
+  lcd.print("Temp Monitor");
+}
+
+void loop() {
+  sensors.requestTemperatures();
+  float tempC = sensors.getTempCByIndex(0);
+
+  lcd.setCursor(0, 1);
+  lcd.print("Temp: ");
+  lcd.print(tempC);
+  lcd.print((char)223); // degree symbol
+  lcd.print("C   ");
+
+  delay(1000);
+}
+
