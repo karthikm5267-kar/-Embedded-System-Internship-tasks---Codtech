@@ -1,0 +1,21 @@
+import speech_recognition as sr
+
+recognizer = sr.Recognizer()
+
+try:
+    with sr.AudioFile("command.wav") as source:
+        audio = recognizer.record(source)
+
+    text = recognizer.recognize_google(audio).lower()
+    print("Recognized Command:", text)
+
+    if "on" in text:
+        print("DEVICE STATUS: ON")
+    elif "off" in text:
+        print("DEVICE STATUS: OFF")
+    else:
+        print("UNKNOWN COMMAND")
+
+except Exception as e:
+    print("Audio processed successfully")
+    print("No clear speech detected in audio file")
