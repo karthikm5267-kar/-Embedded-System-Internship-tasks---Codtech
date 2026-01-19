@@ -1,0 +1,11 @@
+import wave, struct, math
+
+with wave.open("command.wav", "w") as f:
+    f.setnchannels(1)
+    f.setsampwidth(2)
+    f.setframerate(16000)
+    for i in range(16000):
+        value = int(32767 * math.sin(2 * math.pi * 440 * i / 16000))
+        f.writeframes(struct.pack('<h', value))
+
+print("command.wav created")
